@@ -8,55 +8,11 @@
     <link rel="stylesheet" href="pong.css">
 </head>
 <body>
-    <canvas width="800" height="800">
+    <canvas id="pong" width="800" height="800">
 
     </canvas>
-
-    <script>
-        var c = document.querySelector(`canvas`);
-        console.log(typeof c)
-        var ctx = c.getContext(`2d`);
-
-        var x = c.width/2;
-        var y = c.height/2;
-        var w = 100;
-        var h = 100;
-
-        var vx = 50;
-        var vy = 5;
-
-        var color = `rgb(255,0,0)`;
-
-        var timer = setInterval(main, 1000/60)
-        function main()
-        {
-            ctx.clearRect(0,0,c.width,c.height);
-  
-            x+=vx;
-            y+=vy;
-
-            if(x>c.width-w)
-            {
-                vx=-vx
-                color = `rgb(255,255,0)`
-            }
-            if(x<0)
-            {
-                vx=-vx
-                color = `rgb(255,0,0)`
-            }
-            if(y>c.height-h)
-            {
-                vy=-vy
-            }
-            if(y<0)
-            {
-                vy=-vy
-            }
-            ctx.fillStyle = color;
-            ctx.fillRect(x,y,w,h);
-        }
-
-    </script>
+    <script src="js/Box.js"></script>
+    <script src="js/keyboard.js"></script>
+    <script src="js/pong.js"></script>
 </body>
 </html>
