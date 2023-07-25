@@ -16,6 +16,13 @@ ball.h = 20
 ball.vx = -2
 ball.vy = 5
 
+var p2 = new Box();
+p2.w = 20
+p2.x = c.width - p2.w/2
+p2.h = 150
+p2.color = `blue`
+
+
 
 
 
@@ -39,18 +46,47 @@ function main()
         p1.vy += p1.force
     }
 
+    if(keys[`ArrowUp`])
+    {
+        p2.vy += -p2.force
+    }
+
+    if(p2.y < 0+p2.h/2)
+    {
+       p2.y = 0+p2.h/2
+    }
+    
+    if(keys[`ArrowDown`])
+    {
+        p2.vy += p2.force
+    }
+
     p1.vy *= fy
+    p2.vy *= fy
+
     p1.move();
-    ball.move()
+    p2.move();
+    ball.move();
 
     if(p1.y > c.height-p1.h/2)
     {
         p1.y = c.height-p1.h/2
     }
 
+    if(p2.y > c.height-p2.h/2)
+    {
+        p2.y = c.height-p2.h/2
+    }
+
     if(ball.collide(p1))
     {
         ball.x = p1.x + p1.w/2 + ball.w/2
+        ball.vx = -ball.vx
+    }
+
+    if(ball.collide(p2))
+    {
+        ball.x = p2.x - p2.w/2 - ball.w/2
         ball.vx = -ball.vx
     }
 
@@ -62,8 +98,8 @@ function main()
     
     if(ball.x > c.width)
     {
-        ball.x = c.width
-        ball.vx = -ball.vx
+        ball.x = c.width/2
+        ball.y = c.height/2
     }
 
     if(ball.y < 0)
@@ -80,6 +116,7 @@ function main()
 
     p1.draw()
     ball.draw()
+    p2.draw()
 
 
 }
