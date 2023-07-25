@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>w2</title>
+</head>
+<body>
+    <script>
+        //var name = new Array(); ----- oldschool
+        var namo = []
+        namo[0] = "jay"
+        namo[1] = "marty"
+        namo[2] = "sal"
+        namo[3] = "bill"
+        console.log(namo)
+        console.log(namo[1])
+        console.log(namo.length)
+        
+        for(let i=0; i<namo.length; i++)
+        {
+            document.querySelector(`body`).innerHTML += `<p>${namo[i]}</p.`
+        }
+
+        var people = [
+            {
+            fname:`bobby`,
+            lname:`brown`,
+            hair: `brown`,
+            height:6
+            },
+            {
+            fname:`tommy`,
+            lname:`brown`,
+            hair: `brown`,
+            height:6
+            }
+        ]
+        
+        var body = document.querySelector(`body`);
+        var message = ``;
+        for(let i=0; i<people.length; i++)
+        {
+            message += `<p>${people[i].fname} ${people[i].lname}</p>`
+        }
+
+        body.innerHTML += message   
+        
+        class Person
+        {
+            constructor(fname=`larry`, lname=`jones`)
+            {
+                this.fname=fname;
+                this.lname=lname;
+            }
+        }
+
+        var larry = new Person()
+    </script>
+    
+</body>
+</html>
