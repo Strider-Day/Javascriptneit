@@ -1,28 +1,42 @@
 var c = document.querySelector(`#pong`)
 var ctx = c.getContext(`2d`)
+
 var timer = setInterval(main, 1000/60)
 
 var fy = .85
 
-var p1 = new Box();
-p1.w = 20
-p1.x = 0 + p1.w/2
-p1.h = 150
-p1.color = `red`
+var player = []
 
-var ball = new Box();
+var pad = []
+
+player[0] = new Player();
+player[0].pad = new Box();
+
+pad[0] = player[0].pad
+pad[0].w = 20
+pad[0].x = 0 + pad[0].w/2
+pad[0].h = 150
+pad[0].color = `red`
+
+player[1] = new Player();
+player[1].pad = new Box();
+
+pad[1] = player[1].pad
+pad[1].w = 20
+pad[1].x = c.width - pad[1].w/2
+pad[1].h = 150
+pad[1].color = `red`
+pad[1].dir = -1
+
+ball = new Box()
 ball.w = 20
 ball.h = 20
-ball.vx = -2
-ball.vy = 5
+ball.vx = -5
+ball.vy = -5
 
-var p2 = new Box();
-p2.w = 20
-p2.x = c.width - p2.w/2
-p2.h = 150
-p2.color = `blue`
-
-
+var scr = document.querySelectorAll(`#score div`);
+scr[0].innerHTML=player[0].score
+scr[1].innerHTML=player[1].score
 
 
 
@@ -33,73 +47,66 @@ function main()
 
     if(keys[`w`])
     {
-        p1.vy += -p1.force
+        pad[0].vy += -pad[0].force
     }
 
-    if(p1.y < 0+p1.h/2)
-    {
-       p1.y = 0+p1.h/2
-    }
+    
     
     if(keys[`s`])
     {
-        p1.vy += p1.force
+        pad[0].vy += pad[0].force
     }
 
     if(keys[`ArrowUp`])
     {
-        p2.vy += -p2.force
-    }
-
-    if(p2.y < 0+p2.h/2)
-    {
-       p2.y = 0+p2.h/2
+        pad[1].vy += -pad[1].force
     }
     
     if(keys[`ArrowDown`])
     {
-        p2.vy += p2.force
+        pad[1].vy += pad[1].force
     }
 
-    p1.vy *= fy
-    p2.vy *= fy
+    for (let i=0; i < player.length; i++)
+    {
+        if(pad[i].y < 0+pad[i].h/2)
+        {
+            pad[i].y = 0+pad[i].h/2
+        }
+        if(pad[i].y > c.height-pad[i].h/2)
+        {
+            pad[i].y = c.height-pad[i].h/2
+        }
+        pad[i].vy *= fy
+        pad[i].move();
 
-    p1.move();
-    p2.move();
+        if(ball.collide(pad[i]))
+        {
+            ball.x = pad[i].x + (pad[i].w/2 + ball.w/2) * pad[i].dir
+            ball.vx = -ball.vx
+        }
+        pad[i].draw()
+        scr[i].innerHTML = player[i].score
+    }
+
     ball.move();
 
-    if(p1.y > c.height-p1.h/2)
-    {
-        p1.y = c.height-p1.h/2
-    }
-
-    if(p2.y > c.height-p2.h/2)
-    {
-        p2.y = c.height-p2.h/2
-    }
-
-    if(ball.collide(p1))
-    {
-        ball.x = p1.x + p1.w/2 + ball.w/2
-        ball.vx = -ball.vx
-    }
-
-    if(ball.collide(p2))
-    {
-        ball.x = p2.x - p2.w/2 - ball.w/2
-        ball.vx = -ball.vx
-    }
 
     if(ball.x < 0)
     {
         ball.x = c.width/2
         ball.y = c.height/2
+
+        player[1].score +=1
+        console.log(player[1].score)
     }
     
     if(ball.x > c.width)
     {
         ball.x = c.width/2
         ball.y = c.height/2
+        player[0].score +=1
+        console.log(player[0].score)
     }
 
     if(ball.y < 0)
@@ -114,9 +121,6 @@ function main()
         ball.vy = -ball.vy
     }
 
-    p1.draw()
+ 
     ball.draw()
-    p2.draw()
-
-
 }
