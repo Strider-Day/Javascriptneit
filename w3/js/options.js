@@ -27,6 +27,14 @@ function hideshow()
 
 -----------*/
 
+var fill = document.querySelectorAll(`.fill`)
+console.log(fill)
+
+for (let i=0; i < fill.length; i++) 
+{
+    
+}
+
 /*---------
     Program the six key inputs to do the following:
     . Display the correct key names for each player   
