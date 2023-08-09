@@ -13,7 +13,6 @@ function hideshow()
 {
     
     var sides = document.querySelector(".sides")
-    console.log(sides)
     sides.classList.toggle("hidden")
 }
 
@@ -27,11 +26,21 @@ function hideshow()
 
 -----------*/
 
-var fill = document.querySelectorAll(`.fill`)
-console.log(fill)
+var fill = document.getElementsByClassName(`fill`)
 
 for (let i=0; i < fill.length; i++) 
 {
+    fill[i] = player[i].fill
+    fill[i].nextElementSibling.innerHTML = player[i].fill
+
+    fill[i].addEventListener(`input`, colorfill)
+    
+    function colorfill(e)
+    {
+        player[i].fill = e.target.value
+        e.target.nextElementSibling.innerHTML = player[i].fill
+        player[i].pad.fill = e.target.nextElementSibling.innerHTML
+    }
     
 }
 
@@ -43,3 +52,100 @@ for (let i=0; i < fill.length; i++)
         .Change the player's key to the value of the input
         .Show the player's key in the output div 
 -----------*/
+
+var stroke = document.getElementsByClassName(`stroke`)
+
+for (let i=0; i < fill.length; i++) 
+{
+    stroke[i] = player[i].stroke
+    stroke[i].nextElementSibling.innerHTML = player[i].stroke
+
+    stroke[i].addEventListener(`input`, strokecolor)
+    
+    function strokecolor(e)
+    {
+        player[i].stroke = e.target.value
+        e.target.nextElementSibling.innerHTML = player[i].stroke
+        player[i].pad.stroke = e.target.nextElementSibling.innerHTML
+    }
+    
+}
+
+var up = document.getElementsByClassName(`u`)
+
+for (let i=0; i < fill.length; i++)
+{
+    up[i] = player[i].keys.u
+    up[i].nextElementSibling.innerHTML = player[i].keys.u
+
+    up[i].addEventListener(`keydown`, upkey)
+
+    function upkey(e)
+    {
+        if(e.key != "Escape"){
+            up[i].value = e.key
+            up[i].nextElementSibling.innerHTML = e.key
+            player[i].keys.u = e.key
+        }
+        
+        e.target.blur()
+    }
+    up[i].addEventListener(`focus`, (e)=>{
+
+        
+        currentState = "pause"
+    })
+}
+
+var dwn = document.getElementsByClassName(`d`)
+
+for (let i=0; i < fill.length; i++)
+{
+    dwn[i] = player[i].keys.d
+    dwn[i].nextElementSibling.innerHTML = player[i].keys.d
+
+    dwn[i].addEventListener(`keydown`, dwnkey)
+
+    function dwnkey(e)
+    {
+        if(e.key != "Escape"){
+            dwn[i].value = e.key
+            dwn[i].nextElementSibling.innerHTML = e.key
+            player[i].keys.d = e.key
+        }
+        
+        e.target.blur()
+    }
+    dwn[i].addEventListener(`focus`, (e)=>{
+
+        
+        currentState = "pause"
+    })
+}
+
+var strt = document.getElementsByClassName(`s`)
+
+for (let i=0; i < fill.length; i++)
+{
+    strt[i] = player[i].keys.s
+    strt[i].nextElementSibling.innerHTML = player[i].keys.s
+
+    strt[i].addEventListener(`keydown`, strtkey)
+
+    function strtkey(e)
+    {
+        if(e.key != "Escape"){
+            strt[i].value = e.key
+            strt[i].nextElementSibling.innerHTML = e.key
+            player[i].keys.s = e.key
+        }
+        
+        e.target.blur()
+    }
+    strt[i].addEventListener(`focus`, (e)=>{
+
+        
+        currentState = "pause"
+    })
+}
+
