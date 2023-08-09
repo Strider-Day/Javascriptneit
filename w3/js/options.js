@@ -149,3 +149,19 @@ for (let i=0; i < fill.length; i++)
     })
 }
 
+var pwr = document.getElementsByClassName(`power`)
+
+for (let i=0; i < fill.length; i++) 
+{
+    pwr[i] = player[i].power
+    pwr[i].nextElementSibling.innerHTML = player[i].power
+
+    pwr[i].addEventListener(`input`, powershot)
+    
+    function powershot(e)
+    {
+        player[i].power = e.target.value
+        e.target.nextElementSibling.innerHTML = player[i].power
+    }
+    
+}
