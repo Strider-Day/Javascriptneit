@@ -67,6 +67,12 @@
                 p1.keys[fields[i].classList[0]]:
                 p1[fields[i].classList[0]]
         }
+
+        let params = (new URL(document.location)).searchParams
+
+        let name = params.get("load");
+
+        alert(name);
         
     </script>
 </body>

@@ -59,16 +59,35 @@
         const startOptions = document.createElement(`div`);
         startOptions.setAttribute(`id`, `start-options`);
         startOptions.style.backgroundColor=`#00ffff`;
-        //startOptions.style.opacity =`0`;
+        startOptions.style.opacity =`0`;
 
         const continueButton = document.createElement(`button`);
         continueButton.appendChild(document.createTextNode(`continue`))
         continueButton.setAttribute(`data-load`, `true`)
         startOptions.appendChild(continueButton)
 
+        const newButton = document.createElement(`button`);
+        newButton.appendChild(document.createTextNode(`new`))
+        newButton.setAttribute(`data-load`, `true`)
+        startOptions.appendChild(newButton)
+
+        const highscore = document.createElement(`button`);
+        highscore.appendChild(document.createTextNode(`high score`))
+        highscore.setAttribute(`data-load`, `true`)
+        startOptions.appendChild(highscore)
+
         continueButton.addEventListener(`click`, (e)=>{
             window.location = `lobby.html?load=${e.target.dataset.load}`
         })
+
+        newButton.addEventListener('click', (e)=>{
+            window.location = `lobby.html?load=${e.target.dataset.load}`
+        })
+
+        highscore.addEventListener('click', (e)=>{
+            window.location = `hs.html?load=${e.target.dataset.load}`
+        })
+
 
         var timer = setTimeout(loadStartMenu, 1000);
         function loadStartMenu(){
@@ -84,7 +103,7 @@
             $(`#start`).animate({opacity: 0}, 1000, function(){
                 menus.removeChild(startMenu)
                 menus.appendChild(startOptions)
-                
+                $(`#start-options`).animate({opacity: 1}, 2000)
             });
         })
 
