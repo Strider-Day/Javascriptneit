@@ -45,7 +45,7 @@ function check(){
     }
 
     if (email.value != cemail.value){
-        cemail.nextElementSibling.innerHTML = "Emails do not Match!"
+        cemail.nextElementSibling.innerHTML += "Emails do not Match!"
     }
 }
 
